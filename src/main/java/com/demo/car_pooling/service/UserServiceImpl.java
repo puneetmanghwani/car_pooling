@@ -1,0 +1,27 @@
+package com.demo.car_pooling.service;
+
+import com.demo.car_pooling.exception.UserException;
+import com.demo.car_pooling.model.User;
+import com.demo.car_pooling.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    public User addUser(User user) throws UserException {
+
+        User existingUser = userRepository.findByEmail(user.getEmail());
+
+        if(existingUser!=null){
+            throw new UserException("User Already Exist with given email " + user.getEmail());
+        }
+
+        return userRepository.saveUser(user);
+
+    }
+
+}
