@@ -1,4 +1,3 @@
-raise exception when user with same email
-raise exception when vehicle with same regno
-raise exception when offering ride when one ride not ended with same vehicle
 add logging
+make list for user,vehicle more atomic
+handle all custom exceptions;

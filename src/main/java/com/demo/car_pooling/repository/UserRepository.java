@@ -39,4 +39,16 @@ public class UserRepository {
 
     }
 
+    public User findUserById(String userId){
+
+        for(User user : this.users){
+            if(user.getId().equals(userId)){
+                return user;
+            }
+        }
+
+        return null;
+
+    }
+
 }

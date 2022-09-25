@@ -1,4 +1,4 @@
-package com.demo.car_pooling.model;
+package com.demo.car_pooling.model.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,15 +9,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Ride {
-
-    private String id;
+public class UserRideDTO {
 
     private String byUserId;
-
-    private String vehicleRegNo;
-
-    private String vehicleName;
 
     private String origin;
 
@@ -25,10 +19,8 @@ public class Ride {
 
     private Integer availableSeats;
 
-    private Boolean rideTaken;
+    private String vehicleRegNo;
 
-    private String forUserId;
-
-    private Boolean isCompleted;
+    private String vehicleName;
 
 }

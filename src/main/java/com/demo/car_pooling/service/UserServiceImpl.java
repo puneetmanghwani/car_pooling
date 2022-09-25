@@ -12,6 +12,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Override
     public User addUser(User user) throws UserException {
 
         User existingUser = userRepository.findByEmail(user.getEmail());
@@ -22,6 +23,17 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.saveUser(user);
 
+    }
+
+    @Override
+    public User getUserById(String userId) throws UserException {
+        User user = userRepository.findUserById(userId);
+
+        if(user!=null){
+            throw new UserException("User Already Exist with given email " + user.getEmail());
+        }
+
+        return user;
     }
 
 }

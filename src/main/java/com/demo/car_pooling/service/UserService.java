@@ -7,4 +7,6 @@ public interface UserService {
 
     public User addUser(User user) throws UserException;
 
+    public User getUserById(String userId) throws UserException;
+
 }
