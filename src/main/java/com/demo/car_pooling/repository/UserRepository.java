@@ -27,6 +27,19 @@ public class UserRepository {
 
     }
 
+    public List<User> saveAll(List<User> newUsers){
+
+        UUID uuid = null;
+
+        for(User user : newUsers){
+            uuid = UUID.randomUUID();
+            user.setId(uuid.toString());
+            this.users.add(user);
+        }
+
+        return newUsers;
+    }
+
     public synchronized User findByEmail(String email){
 
         for(User user : this.users){

@@ -26,6 +26,15 @@ public class RideSelectionDTO {
 
     private Ride desiredRide;
 
+    public RideSelectionDTO(String userId, String origin, String destination, Integer requiredSeats, String preferredVehicle, Boolean mostVacant) {
+        this.userId = userId;
+        this.origin = origin;
+        this.destination = destination;
+        this.requiredSeats = requiredSeats;
+        this.preferredVehicle = preferredVehicle;
+        this.mostVacant = mostVacant;
+    }
+
     private List<Ride> availableRides;
 
 }

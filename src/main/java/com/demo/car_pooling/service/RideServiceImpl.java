@@ -7,9 +7,11 @@ import com.demo.car_pooling.model.DTO.UserRideDTO;
 import com.demo.car_pooling.model.Ride;
 import com.demo.car_pooling.repository.RideRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class RideServiceImpl implements RideService{
 
     @Autowired
@@ -20,6 +22,8 @@ public class RideServiceImpl implements RideService{
 
     @Override
     public Ride offerRide(UserRideDTO userRideDTO) throws RideException {
+
+        //TODO: check if the vehicle offered exist or not
 
         String regNo = userRideDTO.getVehicleRegNo();
 

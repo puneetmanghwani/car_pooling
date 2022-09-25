@@ -1,3 +1,7 @@
-add logging
+add logging,commenting
 make list for user,vehicle more atomic
-handle all custom exceptions;
+logic for overlapping trips
+handle all custom exceptions and other exceptions;
+driver class
+unit tests
+
