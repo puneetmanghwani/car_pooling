@@ -14,8 +14,10 @@ import java.util.List;
 @ToString
 public class RideStat {
 
-    List<Ride> ridesTaken;
+    private String name;
 
-    List<Ride> ridesOffered;
+    private List<Ride> ridesTaken;
+
+    private List<Ride> ridesOffered;
 
 }

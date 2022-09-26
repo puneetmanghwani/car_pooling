@@ -1,6 +1,7 @@
 package com.demo.car_pooling.service;
 
 import com.demo.car_pooling.exception.RideException;
+import com.demo.car_pooling.exception.UserException;
 import com.demo.car_pooling.model.DTO.RideSelectionDTO;
 import com.demo.car_pooling.model.DTO.RideStat;
 import com.demo.car_pooling.model.DTO.UserRideDTO;
@@ -20,6 +21,8 @@ public interface RideService {
 
     public List<Ride> getRidesOfferedByUser(String userId);
 
-    public RideStat getRidesStatForUser(String userId);
+    public List<RideStat> getRidesStatForAllUsers() throws UserException;
+
+    public RideStat getRidesStatForUser(String userId) throws UserException;
 
 }

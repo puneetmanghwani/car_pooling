@@ -64,4 +64,9 @@ public class UserRepository {
 
     }
 
+    public List<User> findAllUsers(){
+        //TODO: don't return main object
+        return this.users;
+    }
+
 }

@@ -28,12 +28,12 @@ public class CarPoolingService {
 
     public void demoStart() throws UserException, VehicleException, RideException {
 
-        User user1 = userService.addUser(new User(null, "Rohan", "rohan@gmail.com", 36, "M"););
-        User user2 = userService.addUser(new User(null, "Shashank", "shashank@gmail.com", 29, "M"););
-        User user3 = userService.addUser(new User(null, "Nandini", "Nandini@gmail.com", 31, "F"););
-        User user4 = userService.addUser(new User(null, "Shipra", "Shipra@gmail.com", 32, "F"););
-        User user5 = userService.addUser(new User(null, "Gaurav", "Gaurav@gmail.com", 36, "M"););
-        User user6 = userService.addUser(new User(null, "Rahul", "Rahul@gmail.com", 36, "M"););
+        User user1 = userService.addUser(new User(null, "Rohan", "rohan@gmail.com", 36, "M"));
+        User user2 = userService.addUser(new User(null, "Shashank", "shashank@gmail.com", 29, "M"));
+        User user3 = userService.addUser(new User(null, "Nandini", "Nandini@gmail.com", 31, "F"));
+        User user4 = userService.addUser(new User(null, "Shipra", "Shipra@gmail.com", 32, "F"));
+        User user5 = userService.addUser(new User(null, "Gaurav", "Gaurav@gmail.com", 36, "M"));
+        User user6 = userService.addUser(new User(null, "Rahul", "Rahul@gmail.com", 36, "M"));
 
         Vehicle vehicle1 = vehicleService.addVehicle(new Vehicle(null, user1.getId(), "Swift", "KA-01-12345"));
         Vehicle vehicle2 = vehicleService.addVehicle(new Vehicle(null, user2.getId(), "Baleno", "TS-05-62395"));
@@ -59,7 +59,7 @@ public class CarPoolingService {
         boolean thirdRideEnded = rideService.endRide(ride3.getId());
         boolean fourthRideEnded = rideService.endRide(ride4.getId());
 
-        RideStat rideStat1 = rideService.getRidesStatForUser()
+        List<RideStat> rideStats = rideService.getRidesStatForAllUsers();
     }
 
 }

@@ -1,14 +1,17 @@
 package com.demo.car_pooling.service;
 
 import com.demo.car_pooling.exception.RideException;
+import com.demo.car_pooling.exception.UserException;
 import com.demo.car_pooling.model.DTO.RideSelectionDTO;
 import com.demo.car_pooling.model.DTO.RideStat;
 import com.demo.car_pooling.model.DTO.UserRideDTO;
 import com.demo.car_pooling.model.Ride;
+import com.demo.car_pooling.model.User;
 import com.demo.car_pooling.repository.RideRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -97,12 +100,30 @@ public class RideServiceImpl implements RideService{
     }
 
     @Override
-    public RideStat getRidesStatForUser(String userId) {
+    public List<RideStat> getRidesStatForAllUsers() throws UserException {
+
+        List<RideStat> rideStats = new ArrayList<>();
+
+        List<User> users = userService.getAllUsers();
+
+        for(User user : users){
+            RideStat rideStat = getRidesStatForUser(user.getId());
+            rideStats.add(rideStat);
+        }
+
+        return rideStats;
+
+    }
+
+    @Override
+    public RideStat getRidesStatForUser(String userId) throws UserException {
+
+        User user = userService.getUserById(userId);
 
         List<Ride> ridesTakenByUser = getRidesTakenByUser(userId);
         List<Ride> ridesOfferedByUser = getRidesOfferedByUser(userId);
 
-        RideStat rideStat = new RideStat(ridesTakenByUser, ridesOfferedByUser);
+        RideStat rideStat = new RideStat(user.getName(), ridesTakenByUser, ridesOfferedByUser);
 
         return rideStat;
 
