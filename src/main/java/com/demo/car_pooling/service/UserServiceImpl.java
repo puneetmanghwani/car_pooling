@@ -30,11 +30,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(String userId) throws UserException {
         User user = userRepository.findUserById(userId);
-
-        if(user!=null){
-            throw new UserException("User Already Exist with given email " + user.getEmail());
-        }
-
         return user;
     }
 

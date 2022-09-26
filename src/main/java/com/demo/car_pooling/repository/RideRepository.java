@@ -14,8 +14,17 @@ public class RideRepository {
 
     private List<Ride> completedRides;
 
+    public List<Ride> getCurrentRides() {
+        return currentRides;
+    }
+
+    public List<Ride> getCompletedRides() {
+        return completedRides;
+    }
+
     public RideRepository(){
         this.currentRides = new ArrayList<>();
+        this.completedRides = new ArrayList<>();
     }
 
     public synchronized Ride saveRide(Ride ride){
@@ -75,7 +84,7 @@ public class RideRepository {
         List<Ride> finalRides = new ArrayList<>();
 
         for(Ride ride : currentRides){
-            if(ride.getOrigin().equals(origin) && ride.getDestination().equals(destination) && ride.getAvailableSeats()>=requiredSeats){
+            if(ride.getRideTaken()==false && ride.getOrigin().equals(origin) && ride.getDestination().equals(destination) && ride.getAvailableSeats()>=requiredSeats){
                 finalRides.add(ride);
             }
         }
@@ -141,7 +150,7 @@ public class RideRepository {
         List<Ride> finalRides = new ArrayList<>();
 
         for(Ride ride : this.completedRides){
-            if(ride.getForUserId().equals(userId)){
+            if(ride.getForUserId()!=null && ride.getForUserId().equals(userId)){
                 finalRides.add(ride);
             }
         }

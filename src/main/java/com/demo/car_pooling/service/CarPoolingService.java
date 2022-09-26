@@ -9,12 +9,16 @@ import com.demo.car_pooling.model.DTO.UserRideDTO;
 import com.demo.car_pooling.model.Ride;
 import com.demo.car_pooling.model.User;
 import com.demo.car_pooling.model.Vehicle;
+import com.demo.car_pooling.repository.RideRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service
+@Slf4j
 public class CarPoolingService {
 
     @Autowired
@@ -26,6 +30,10 @@ public class CarPoolingService {
     @Autowired
     private RideService rideService;
 
+    @Autowired
+    private RideRepository rideRepository;
+
+    @PostConstruct
     public void demoStart() throws UserException, VehicleException, RideException {
 
         User user1 = userService.addUser(new User(null, "Rohan", "rohan@gmail.com", 36, "M"));
@@ -46,13 +54,20 @@ public class CarPoolingService {
         Ride ride3 = rideService.offerRide(new UserRideDTO(user4.getId(), "Bangalore", "Mysore", 2, "KA-05-41491", "Polo"));
         Ride ride4 = rideService.offerRide(new UserRideDTO(user2.getId(), "Hyderabad", "Bangalore", 2, "TS-05-62395", "Baleno"));
         Ride ride5 = rideService.offerRide(new UserRideDTO(user6.getId(), "Hyderabad", "Bangalore", 5, "KA-05-1234", "Xuv"));
-        Ride ride6 = rideService.offerRide(new UserRideDTO(user1.getId(), "Bangalore", "Pune", 1, "KA-01-12345", "Swift"));
+//        Ride ride6 = rideService.offerRide(new UserRideDTO(user1.getId(), "Bangalore", "Pune", 1, "KA-01-12345", "Swift"));
+
+        try {
+            //TODO: handle this
+            Ride ride6 = rideService.offerRide(new UserRideDTO(user1.getId(), "Bangalore", "Pune", 1, "KA-01-12345", "Swift"));
+        } catch (Exception e){
+            log.error(e.getMessage());
+        }
 
         RideSelectionDTO rideSelectionDTO1 = rideService.selectRide(new RideSelectionDTO(user3.getId(), "Bangalore", "Mysore", 1, null, true));
-        RideSelectionDTO rideSelectionDTO2 = rideService.selectRide(new RideSelectionDTO(user5.getId(), "Bangalore", "Mysore", 1, "Activa", false));
+        RideSelectionDTO rideSelectionDTO2 = rideService.selectRide(new RideSelectionDTO(user5.getId(), "Bangalore", "Mysore", 1, "Activa", null));
         RideSelectionDTO rideSelectionDTO3 = rideService.selectRide(new RideSelectionDTO(user2.getId(), "Mumbai", "Bangalore", 1, null, true));
-        RideSelectionDTO rideSelectionDTO4 = rideService.selectRide(new RideSelectionDTO(user1.getId(), "Hyderabad", "Bangalore", 1, "Baleno", false));
-        RideSelectionDTO rideSelectionDTO5 = rideService.selectRide(new RideSelectionDTO(user2.getId(), "Hyderabad", "Bangalore", 1, "Polo", false));
+        RideSelectionDTO rideSelectionDTO4 = rideService.selectRide(new RideSelectionDTO(user1.getId(), "Hyderabad", "Bangalore", 1, "Baleno", null));
+        RideSelectionDTO rideSelectionDTO5 = rideService.selectRide(new RideSelectionDTO(user2.getId(), "Hyderabad", "Bangalore", 1, "Polo", null));
 
         boolean firstRideEnded = rideService.endRide(ride1.getId());
         boolean secondRideEnded = rideService.endRide(ride2.getId());
@@ -60,6 +75,8 @@ public class CarPoolingService {
         boolean fourthRideEnded = rideService.endRide(ride4.getId());
 
         List<RideStat> rideStats = rideService.getRidesStatForAllUsers();
+
+        log.info(rideStats.toString());
     }
 
 }

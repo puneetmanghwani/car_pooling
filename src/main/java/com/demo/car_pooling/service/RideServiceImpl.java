@@ -58,9 +58,15 @@ public class RideServiceImpl implements RideService{
             rides = getOverLappingRidesBetweenSourceAndDestination(rideSelectionDTO.getOrigin(), rideSelectionDTO.getDestination(), rideSelectionDTO.getRequiredSeats());
         }
 
-        Ride desiredRide = getRideBasedOnSelectionStrategy(rides, rideSelectionDTO);
-        desiredRide = saveUserForRide(desiredRide, rideSelectionDTO.getUserId());
+        if(rides.size()==0){
+            return rideSelectionDTO;
+        }
 
+        Ride desiredRide = getRideBasedOnSelectionStrategy(rides, rideSelectionDTO);
+
+        if(desiredRide!=null){
+            desiredRide = saveUserForRide(desiredRide, rideSelectionDTO.getUserId());
+        }
 
         rideSelectionDTO.setDesiredRide(desiredRide);
         rideSelectionDTO.setAvailableRides(rides);
@@ -132,6 +138,7 @@ public class RideServiceImpl implements RideService{
     private Ride saveUserForRide(Ride ride, String userId){
 
         ride.setForUserId(userId);
+        ride.setRideTaken(true);
         ride = rideRepository.updateRide(ride);
 
         return ride;
@@ -163,7 +170,7 @@ public class RideServiceImpl implements RideService{
         List<Ride> destinationRides = rideRepository.findRideByDestination(destination, requiredSeats);
 
         //TODO: think of better way
-        return null;
+        return new ArrayList<>();
     }
 
     private Ride getRideBasedOnSelectionStrategy(List<Ride> rides, RideSelectionDTO rideSelectionDTO){
@@ -197,7 +204,7 @@ public class RideServiceImpl implements RideService{
 
     private boolean checkIfMostVacantVehicle(Boolean needMostVacant, Integer currentRideVacancy, Integer availableSeats){
 
-        if(needMostVacant!=null && availableSeats>currentRideVacancy){
+        if(needMostVacant!=null && needMostVacant!=false && availableSeats>currentRideVacancy){
             return true;
         }
 
